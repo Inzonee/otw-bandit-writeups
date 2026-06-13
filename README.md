@@ -22,7 +22,7 @@ grep "millionth" data.txt
 ## Comman used
 sort data.txt | uniq -u
 
-## What I leaned
+## What I learned
 -"|" is a Pipe and can be used to connect two Commands.
 -sort sorts the document so repeated lines are in a Block.
 -uniq can be used tu filter out duplicated lines
