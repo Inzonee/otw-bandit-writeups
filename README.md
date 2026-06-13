@@ -11,9 +11,9 @@ grep "millionth" data.txt
 
 
 ## What I learned
--grep can be used to search specific patterns within files
--Syntax: grep [Option] Pattern [FIle]
--Grep is usefull to search for certain words/patterns within a document.
+- grep can be used to search specific patterns within files
+- Syntax: grep [Option] Pattern [FIle]
+- Grep is usefull to search for certain words/patterns within a document.
 
 # Bandit Level 8 → Level 9
 
@@ -23,7 +23,7 @@ grep "millionth" data.txt
 sort data.txt | uniq -u
 
 ## What I learned
--"|" is a Pipe and can be used to connect two Commands.
--sort sorts the document so repeated lines are in a Block.
--uniq can be used tu filter out duplicated lines
--Pipe was in this scenario important scince uniq only compares line with the line immediatly preceding it which is why sort is neccesary.
+- "|" is a Pipe and can be used to connect two Commands.
+- sort sorts the document so repeated lines are in a Block.
+- uniq can be used tu filter out duplicated lines
+- Pipe was in this scenario important scince uniq only compares line with the line immediatly preceding it which is why sort is neccesary.
