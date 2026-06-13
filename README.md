@@ -41,3 +41,24 @@ strings data.txt | grep "=="
 ## What I learned
 - strings can be used to filter out binary and only shows readable characters
 - binary files contain non-readable characters, strings extracts only ASCII text with 4+ printable characters
+
+
+# Bandit Level 10 → Level 11
+
+## Level Goal
+The password for the next level is stored in the file data.txt, which contains base64 encoded data
+
+## Command used
+base64 data.txt -d
+
+## What I learned 
+- Base64 converts binary data into ASCII string format
+- primary purpose is data integrity during transmition over systems
+
+# Level Goal
+The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
+
+## Command used
+
+
+
