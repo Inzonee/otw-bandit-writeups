@@ -39,7 +39,7 @@ The password for the next level is stored in the file data.txt in one of the few
 strings data.txt | grep "=="
 
 ## What I learned
-- strings can be used to filter out binary and only shows readable characters
+- 'strings' can be used to filter out binary and only shows readable characters
 - binary files contain non-readable characters, strings extracts only ASCII text with 4+ printable characters
 
 
@@ -55,10 +55,30 @@ base64 data.txt -d
 - Base64 converts binary data into ASCII string format
 - primary purpose is data integrity during transmition over systems
 
-# Level Goal
-The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
+# Bandit Level 12 → Level 13
 
-## Command used
+## Concept
+A file was compressed multiple times with different tools (gzip, bzip2, tar),
+then converted to a hexdump with xxd. The goal is to reverse all of that
+step by step until you reach plaintext.
 
+## Process
+1. Create a temp working directory with `mktemp -d` and copy the file there
+2. Convert the hexdump back to binary: `xxd -r data.txt > data_bin`
+3. Check the file type: `file data_bin`
+4. Decompress accordingly, repeat until ASCII text
 
+## Decompression commands used
+- gzip: `mv file file.gz && gunzip file.gz`
+- bzip2: `mv file file.bz2 && bunzip2 file.bz2`  
+- tar: `tar xf file`
+
+## What I learned
+- `file` reads magic bytes to determine the real file type — 
+  file extensions can lie, which matters in security contexts
+- `&&` runs the second command only if the first succeeded
+- `xxd -r` reverses a hexdump back to binary
+- Never `cat` a binary file — it corrupts your terminal output
+
+# Bandit Level 13 → Level 14
 
