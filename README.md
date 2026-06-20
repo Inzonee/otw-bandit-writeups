@@ -88,12 +88,12 @@ No password this time. A private SSH key is provided instead, which can be used 
 ## Process
 
 1. Display the private key on the server:
-```bash
+``` bash
    cat /home/bandit13/sshkey.private
 ```
 
 2. Save it locally on Windows:
-```cmd
+``` cmd
    notepad bandit14.key
 ```
    Paste everything including the header and footer:
@@ -104,7 +104,7 @@ No password this time. A private SSH key is provided instead, which can be used 
 ```
 
 3. Connect using the key:
-```cmd
+``` cmd
    ssh -i C:\Users\USERNAME\bandit14.key bandit14@bandit.labs.overthewire.org -p 2220
 ```
 
