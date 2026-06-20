@@ -63,10 +63,10 @@ then converted to a hexdump with xxd. The goal is to reverse all of that
 step by step until you reach plaintext.
 
 ## Process
-1. Create a temp working directory with `mktemp -d` and copy the file there
-2. Convert the hexdump back to binary: `xxd -r data.txt > data_bin`
-3. Check the file type: `file data_bin`
-4. Decompress accordingly, repeat until ASCII text
+1. Create a temp working directory with `mktemp -d` and copy the file there.
+2. Convert the hexdump back to binary: `xxd -r data.txt > data_bin`.
+3. Check the file type: `file data_bin`.
+4. Decompress accordingly, repeat until ASCII text.
 
 ## Decompression commands used
 - gzip: `mv file file.gz && gunzip file.gz`
@@ -75,10 +75,9 @@ step by step until you reach plaintext.
 
 ## What I learned
 - `file` reads magic bytes to determine the real file type — 
-  file extensions can lie, which matters in security contexts
-- `&&` runs the second command only if the first succeeded
-- `xxd -r` reverses a hexdump back to binary
-- Never `cat` a binary file — it corrupts your terminal output
+  file extensions can lie, which matters in security contexts.
+- `&&` runs the second command only if the first succeeded.
+- `xxd -r` reverses a hexdump back to binary.
 
 # Bandit Level 13 → 14
 
@@ -114,33 +113,47 @@ No password this time. A private SSH key is provided instead, which can be used 
 ```
 
 ## What I learned
-- SSH can authenticate with a private key instead of a password — no password prompt appears at all
-- The `-i` flag specifies which private key file to use
-- Private keys are just text files and can be copy-pasted between terminals
-- `chmod 600` was not needed on Windows, but on Linux a private key must have restricted permissions or SSH refuses to use it
+- SSH can authenticate with a private key instead of a password — no password prompt appears at all.
+- The `-i` flag specifies which private key file to use.
+- Private keys are just text files and can be copy-pasted between terminals.
+- `chmod 600` was not needed on Windows, but on Linux a private key must have restricted permissions or SSH refuses to use it.
 
 # Bandit Level 14 → Level 15
 
 ## Concept
-To get the password to the next level, the password from the current level needs to be sent to port 30000 on localhost
+To get the password to the next level, the password from the current level needs to be sent to port 30000 on localhost.
 
 ## Process
-1. use the command netcat to connect to port 30000 on localhost
+1. use the command netcat to connect to port 30000 on localhost.
 ``` cmd
 nc localhost 30000
 ```
-2. Paste the Password in and get a return message
-3. To get the passwort of current level
+2. Paste the Password in and get a return message.
+3. To get the passwort of current level.
 ``` cmd
 cat /etc/bandit_pass/bandit14
 ```
 
 ## What I learned
-- `nc` (Netcat) opens a direct TCP connection to a host and port
-- `localhost` refers to the current machine itself
+- `nc` (Netcat) opens a direct TCP connection to a host and port.
+- `localhost` refers to the current machine itself.
 - Services can listen on specific ports and respond to input
-  here port 30000 accepted the password and returned the next one
+  here port 30000 accepted the password and returned the next one.
 
+# Bandit Level 15 → Level 16
 
+## Concept
+To get the password to the next level, the password from the current level needs to be sent to port 30001 on localhost usind SSL/TLS encription.
 
+## Process
+1. Establish an SSL/TLS connection to the target service:
+``` cmd
+openssl s_client -connect localhost:30001
+```
+2. After the TLS handshake is completed, enter the password from the current level and press Enter.
+
+## What I learned
+- How to use openssl s_client to establish SSL/TLS connections from the command line.
+- The difference between plain-text communication and encrypted communication.
+- That Transport Layer Security (TLS) provides encryption and helps protect data during transmission.
 
