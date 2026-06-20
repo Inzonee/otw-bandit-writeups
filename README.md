@@ -157,3 +157,28 @@ openssl s_client -connect localhost:30001
 - The difference between plain-text communication and encrypted communication.
 - That Transport Layer Security (TLS) provides encryption and helps protect data during transmission.
 
+# Bandit Level 16 → Level 17
+
+## Concept
+The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. First find out which of these ports have a server listening on them. Then find out which of those speak SSL/TLS and which don’t. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+
+## Process
+1. Find out what ports are listening.
+``` cmd
+   nmap localhost -p 31000-32000
+```
+2. Test each open port with openssl to find which ones speak SSL/TLS:
+   openssl s_client -connect localhost:<port> -ign_eof
+   Ports that echo your input back are echo servers — ignore them.
+   The correct port returns credentials.
+   
+4. Because of KEYUPDATE you need to use -ign_eof Flag
+``` cmd
+   openssl s_client -connect localhost:(the port) -ign_eof
+```
+4. Get the private key do the steps in lv 13 and connect to next level
+
+## What I learned
+- `nmap` can scan multiple ports and give information about different ports
+- Two ports where working but one was an echo server which only gave your input back and the other was a real server which gives answer
+- The -ign_eof flag prevents openssl s_client from automatically closing the connection when it reaches the end of the input stream, ensuring the connection stays open long enough to receive the server's full response
