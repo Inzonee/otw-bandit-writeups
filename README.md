@@ -108,10 +108,39 @@ No password this time. A private SSH key is provided instead, which can be used 
    ssh -i C:\Users\USERNAME\bandit14.key bandit14@bandit.labs.overthewire.org -p 2220
 ```
 
+4. Get the key:
+``` cmd
+  cat /etc/bandit_pass/bandit14
+```
+
 ## What I learned
 - SSH can authenticate with a private key instead of a password — no password prompt appears at all
 - The `-i` flag specifies which private key file to use
 - Private keys are just text files and can be copy-pasted between terminals
 - `chmod 600` was not needed on Windows, but on Linux a private key must have restricted permissions or SSH refuses to use it
+
+# Bandit Level 14 → Level 15
+
+## Concept
+To get the password to the next level, the password from the current level needs to be sent to port 30000 on localhost
+
+## Process
+1. use the command netcat to connect to port 30000 on localhost
+``` cmd
+nc localhost 30000
+```
+2. Paste the Password in and get a return message
+3. To get the passwort of current level
+``` cmd
+cat /etc/bandit_pass/bandit14
+```
+
+## What I learned
+- `nc` (Netcat) opens a direct TCP connection to a host and port
+- `localhost` refers to the current machine itself
+- Services can listen on specific ports and respond to input
+  here port 30000 accepted the password and returned the next one
+
+
 
 
