@@ -80,22 +80,38 @@ step by step until you reach plaintext.
 - `xxd -r` reverses a hexdump back to binary
 - Never `cat` a binary file — it corrupts your terminal output
 
-# Bandit Level 13 → Level 14
-The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Look at the commands that logged you into previous bandit levels, and find out how to use the key for this level.
+# Bandit Level 13 → 14
 
-##Process
+## Concept
+No password this time. A private SSH key is provided instead, which can be used to authenticate as bandit14. The actual password is stored in `/etc/bandit_pass/bandit14` but is only readable by bandit14 — so the key is your only way in.
 
-1. Display the privatekey on the server:
-    'cat sshkey.private'
-2. Copy the key content to a local file (Windows):
-   'notepad bandit14.key'
-   Paste everything from -----BEGIN RSA PRIVATE KEY----- to -----END RSA PRIVATE KEY-----
-4.  Connect using the key:
-   'ssh -i C:\Users\USERNAME\bandit14.key bandit14@bandit.labs.overthewire.org -p 2220'
+## Process
+
+1. Display the private key on the server:
+```bash
+   cat /home/bandit13/sshkey.private
+```
+
+2. Save it locally on Windows:
+```cmd
+   notepad bandit14.key
+```
+   Paste everything including the header and footer:
+```
+   -----BEGIN RSA PRIVATE KEY-----
+   ...
+   -----END RSA PRIVATE KEY-----
+```
+
+3. Connect using the key:
+```cmd
+   ssh -i C:\Users\USERNAME\bandit14.key bandit14@bandit.labs.overthewire.org -p 2220
+```
 
 ## What I learned
-- SSH can authenticate with a private key instead of a password
-- The key file is just text — it can be copy-pasted between terminals
-- i flag in SSH specifies which identity file (private key) to use
+- SSH can authenticate with a private key instead of a password — no password prompt appears at all
+- The `-i` flag specifies which private key file to use
+- Private keys are just text files and can be copy-pasted between terminals
+- `chmod 600` was not needed on Windows, but on Linux a private key must have restricted permissions or SSH refuses to use it
 
 
