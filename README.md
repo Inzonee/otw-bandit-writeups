@@ -81,4 +81,21 @@ step by step until you reach plaintext.
 - Never `cat` a binary file — it corrupts your terminal output
 
 # Bandit Level 13 → Level 14
+The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Look at the commands that logged you into previous bandit levels, and find out how to use the key for this level.
+
+##Process
+
+1. Display the privatekey on the server:
+    'cat sshkey.private'
+2. Copy the key content to a local file (Windows):
+   'notepad bandit14.key'
+   Paste everything from -----BEGIN RSA PRIVATE KEY----- to -----END RSA PRIVATE KEY-----
+4.  Connect using the key:
+   'ssh -i C:\Users\USERNAME\bandit14.key bandit14@bandit.labs.overthewire.org -p 2220'
+
+## What I learned
+- SSH can authenticate with a private key instead of a password
+- The key file is just text — it can be copy-pasted between terminals
+- i flag in SSH specifies which identity file (private key) to use
+
 
