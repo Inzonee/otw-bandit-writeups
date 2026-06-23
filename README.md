@@ -182,3 +182,18 @@ The credentials for the next level can be retrieved by submitting the password o
 - `nmap` can scan multiple ports and give information about different ports
 - Two ports where working but one was an echo server which only gave your input back and the other was a real server which gives answer
 - The -ign_eof flag prevents openssl s_client from automatically closing the connection when it reaches the end of the input stream, ensuring the connection stays open long enough to receive the server's full response
+
+# Bandit Level 17 → Level 18
+
+## Concept
+There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new
+
+## Process
+1. List the files in the home directory using `ls`
+2. Compare both files with `diff passwords.old passwords.new`
+3. `<` shows content from passwords.old `>` shows content from passwords.new
+
+## What I learned
+- diff is used to compare two files line by line and highlight differences
+- The symbols <` and `>` indicate the source of each changed line
+- Simple comparison tools are often enough to detect changes without additional filtering tools like `grep`
