@@ -197,3 +197,14 @@ There are 2 files in the homedirectory: passwords.old and passwords.new. The pas
 - diff is used to compare two files line by line and highlight differences
 - The symbols <` and `>` indicate the source of each changed line
 - Simple comparison tools are often enough to detect changes without additional filtering tools like `grep`
+
+# Bandit Level 18 → Level 19
+
+## Concept
+When connecting via SSH as bandit18, the session immediately terminates after login.
+Despite this restriction, SSH still allows the execution of non-interactive remote commands. The goal is to retrieve the password for the next level using this behavior.
+
+## Process
+1. Attempt a normal SSH login:
+2. 
+
